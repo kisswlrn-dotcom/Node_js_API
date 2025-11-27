@@ -1,0 +1,125 @@
+/* ---- 공통 스타일 (배경, 카드, 폰트 등 Riot 스타일) ---- */
+body,
+html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: "Segoe UI", sans-serif;
+  color: #fff;
+}
+
+.bg {
+  background: url("../img/viego.png") no-repeat center center / cover;
+  filter: brightness(0.65);
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 40px;
+}
+
+.card {
+  width: 380px;
+  background: rgba(25, 25, 25, 0.78);
+  padding: 40px 35px;
+  border-radius: 12px;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.45);
+  margin: 40px auto;
+}
+
+.card.wide {
+  width: 700px;
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 27px;
+  font-size: 26px;
+}
+
+/* ---- Input 그룹 ---- */
+.form-group {
+  position: relative;
+  margin-bottom: 25px;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 14px 12px;
+  font-size: 15px;
+  background: #2e2e2e;
+  border: 1px solid #3d3d3d;
+  border-radius: 6px;
+  color: #fff;
+  resize: none;
+}
+
+.form-group label {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  color: #aaa;
+  transform: translateY(-50%);
+  transition: 0.2s;
+  pointer-events: none;
+  font-size: 14px;
+}
+
+.form-group input:focus + label,
+.form-group input:not(:placeholder-shown) + label,
+.form-group textarea:focus + label,
+.form-group textarea:not(:placeholder-shown) + label {
+  top: -7px;
+  font-size: 12px;
+  background: rgba(25, 25, 25, 0.85);
+  padding: 0 4px;
+}
+
+/* ---- 버튼 ---- */
+.primary-btn {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 6px;
+  margin-top: 10px;
+  background: #d13a3a;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.15s;
+}
+
+.primary-btn:hover {
+  background: #ff4d4d;
+}
+
+.danger-btn {
+  width: 100%;
+  padding: 14px;
+  border-radius: 6px;
+  background: #7a1f1f;
+  color: #fff;
+  margin-top: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.danger-btn:hover {
+  background: #a32828;
+}
+
+/* 포스트 아이템 */
+.post-item {
+  background: rgba(0, 0, 0, 0.35);
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}

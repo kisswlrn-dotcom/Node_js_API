@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>포스트 목록</title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <div class="bg"></div>
+
+    <div class="wrapper">
+      <div class="card wide">
+        <h1 class="title">포스트 목록</h1>
+
+        <div class="form-group">
+          <input id="searchUser" type="text" placeholder=" " />
+          <label>작성자 검색</label>
+        </div>
+        <button id="searchBtn" class="primary-btn">검색</button>
+
+        <div id="post-list" style="margin-top: 20px"></div>
+
+        <button class="primary-btn" onclick="location.href='post-create.html'">
+          새 글 작성
+        </button>
+      </div>
+    </div>
+
+    <script>
+      const token = localStorage.getItem("token");
+
+      async function loadPosts(username = "") {
+        const res = await fetch(
+          username
+            ? `http://127.0.0.1:3000/post?username=${username}`
+            : "http://127.0.0.1:3000/post",
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        const posts = await res.json();
+
+        const box = document.getElementById("post-list");
+        box.innerHTML = "";
+
+        posts.forEach((p) => {
+          box.innerHTML += `
+          <div class="post-item">
+            <h3>${p.text}</h3>
+            <p>작성자: ${p.name}</p>
+            <button class="primary-btn" onclick="location.href='post-detail.html?id=${p._id}'">자세히</button>
+          </div>
+        `;
+        });
+      }
+
+      document.getElementById("searchBtn").onclick = () => {
+        loadPosts(document.getElementById("searchUser").value);
+      };
+
+      loadPosts();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>포스트 상세</title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <div class="bg"></div>
+
+    <div class="wrapper">
+      <div class="card wide">
+        <h1 class="title">포스트 상세</h1>
+
+        <p id="content"></p>
+        <p id="writer"></p>
+
+        <button id="edit" class="primary-btn">수정</button>
+        <button id="delete" class="danger-btn">삭제</button>
+      </div>
+    </div>
+
+    <script>
+      const id = new URLSearchParams(location.search).get("id");
+      const token = localStorage.getItem("token");
+
+      async function load() {
+        const res = await fetch(`http://127.0.0.1:3000/post/${id}`, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const p = await res.json();
+
+        document.getElementById("content").innerText = p.text;
+        document.getElementById("writer").innerText = "작성자: " + p.userid;
+
+        document.getElementById("edit").onclick = () =>
+          (location.href = `post-edit.html?id=${id}`);
+      }
+
+      document.getElementById("delete").onclick = async () => {
+        if (!confirm("삭제하시겠습니까?")) return;
+
+        const res = await fetch(`http://127.0.0.1:3000/post/${id}`, {
+          method: "DELETE",
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        if (res.ok) {
+          alert("삭제 완료!");
+          location.href = "post.html";
+        } else alert("삭제 실패");
+      };
+
+      load();
+    </script>
+  </body>
+</html>
